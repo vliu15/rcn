@@ -1,7 +1,7 @@
 import os
 
 from utils.cli_parser import arg_parser
-from es.wrapper import EvolutionaryStrategyWrapper
+from es.wrapper import EvolutionStrategyWrapper
 
 def main():
     args = arg_parser().parse_args()
@@ -32,3 +32,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+ 

@@ -5,7 +5,7 @@ import utils.initializers as i
 
 # select model from command line arg
 map_str_model = {
-    'base': r.RecurrentNeuralNetwork
+    'base': r.BaseRecurrentNeuralNetwork
 }
 
 # base
