@@ -6,7 +6,7 @@ import csv
 import sys
 import os
 
-from rnn.base import BaseRecurrentNeuralNetwork
+from rnn.base import RecurrentNeuralNetwork
 from es.evostra import EvolutionStrategy
 from config import map_str_model
 
@@ -38,7 +38,7 @@ class EvolutionStrategyWrapper(object):
 
         # es parameters
         self.env = gym.make(args.env)
-        Model = map_str_model.get(args.model, BaseRecurrentNeuralNetwork)
+        Model = map_str_model.get(args.model, RecurrentNeuralNetwork)
         print("Running {}...".format(Model.__name__))
         self.model = Model(self.env.observation_space.shape[0], self.env.action_space.shape[0])
         self.es = EvolutionStrategy(self.model.get_weights(), self.get_reward, self.POPULATION_SIZE,

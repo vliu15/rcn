@@ -1,7 +1,7 @@
 import numpy as np
 import copy
 
-class BaseRecurrentNeuralNetwork(object):
+class RecurrentNeuralNetwork(object):
     """
     Architecture:
                    OUTPUT(t)
