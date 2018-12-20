@@ -5,7 +5,7 @@ In our [previous repository](https://github.com/vliu15/CPG-RL), we explored vari
 We continue to use MuJoCo environments with OpenAI Gym as our means of testing our models. We find that MuJoCo provides a variety of different locomotive tasks that force a model to learn movements along different axes requiring different amounts of complexities.
 
 ## Optimizer
-We use Evolutionary Strategies as our optimization algorithm, as training through disturbance by random Gaussian noise has been proven to be very effective. We do not use another top alternative, Proximal Policy Optimization, because of its inflexibility to Recurrent Neural Networks.
+We use Evolutionary Strategies as our optimization algorithm, as training through disturbance by random Gaussian noise has been proven to be very effective. We do not use another top alternative, OpenAI's Proximal Policy Optimization, because of its inflexibility to Recurrent Neural Networks (and extremely poor documentation).
 
 ## Models
 This repository is dedicated to exploring the efficacy of Recurrent Neural Networks. We have the following models, the hyperparameters to which are in `config.py`.
