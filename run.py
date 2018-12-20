@@ -1,11 +1,11 @@
 import os
 
 from utils.cli_parser import arg_parser
-from es.wrapper import EvolutionStrategyWrapper
+from es.wrapper import EvolutionaryStrategyWrapper
 
 def main():
     args = arg_parser().parse_args()
-    agent = EvolutionStrategyWrapper(args)
+    agent = EvolutionaryStrategyWrapper(args)
 
     # load existing weights if specified
     if args.weights_file != '':

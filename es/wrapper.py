@@ -11,7 +11,7 @@ from es.evostra import EvolutionStrategy
 from config import map_str_model
 
 
-class EvolutionStrategyWrapper(object):
+class EvolutionaryStrategyWrapper(object):
 
     def __init__(self, args):
         """Initialize the ES-env structure."""
