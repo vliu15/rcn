@@ -17,5 +17,9 @@ The most basic Recurrent Neural Network, this model is our baseline (with hidden
 
 ### Recurrent Control Net (RCN)
 Building off the idea of linear and nonlinear control modules outlined in [this](https://arxiv.org/abs/1802.08311) paper, the Recurrent Control Net uses a vanilla RNN as the nonlinear module and a simple linear mapping as the linear module. The RCN has:
-- 4 weight kernels
-- 3 bias vectors (2 nonlinear control, 1 linear control), set the `use_bias` flags be set to `True`
+- Nonlinear module:
+  - 3 weight kernels
+  - 2 bias vectors, should the `n_use_bias` flags be set to `True`
+- Linear module:
+  - 1 weight kernel
+  - 1 bias vector, should the `l_use_bias` flag be set to `True`
