@@ -63,7 +63,9 @@ class RecurrentControlNet(object):
 
     def set_weights(self, weights):
         self.w_ih, self.w_hh, self.w_ho, self.w_l = weights[:4]
+        idx = 4
         if self.n_use_bias:
-           self.b_h, self.b_o = weights[4:6]
+           self.b_h, self.b_o = weights[idx:idx+2]
+           idx += 2
         if self.l_use_bias:
-            self.b_l = weights[6]
+            self.b_l = weights[idx]
