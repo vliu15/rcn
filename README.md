@@ -1,8 +1,22 @@
 # Recurrent Neural Networks as Central Pattern Generators
 In our [previous repository](https://github.com/vliu15/CPG-RL), we explored various models that could improve upon the baseline Multilayer Perceptron policy baseline. We found that Recurrent Neural Networks work pretty well and intend to explore the recurrent architecture in depth in this repository. Additionally, the addition of gates and enhanced memory (i.e. Gated Recurrent Units, Long Short-Term Memories) decreased performance in these tasks. As a result, we only focus on vanilla Recurrent Neural Networks.
 
+## Usage
+See the [CPG-RL](https://github.com/vliu15/CPG-RL) repository for installing dependencies for MuJoCo.
+```
+# clone repository
+git clone https://github.com/vliu15/RNN-CPG
+cd RNN-CPG
+
+# train on environments
+python3 run.py --model rnn \
+    --env Swimmer-v2 \
+    --num_timesteps 2000000
+```
+See `utils/cli_parser.py` for all command line arguments for training.
+
 ## Environment
-We continue to use MuJoCo environments with OpenAI Gym as our means of testing our models. We find that MuJoCo provides a variety of different locomotive tasks that force a model to learn movements along different axes requiring different amounts of complexities.
+We continue to use MuJoCo v2 environments with OpenAI Gym as our means of testing our models. We find that MuJoCo provides a variety of different locomotive tasks that force a model to learn movements along different axes requiring different amounts of complexities.
 
 ## Optimizer
 We use Evolutionary Strategies as our optimization algorithm, as training through disturbance by random Gaussian noise has been proven to be very effective. We do not use another top alternative, OpenAI's Proximal Policy Optimization, because of its inflexibility to Recurrent Neural Networks (and extremely poor documentation).
