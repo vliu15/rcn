@@ -1,0 +1,8 @@
+mjkey.txt
+*.DS_STORE
+**/__pycache__
+*.vscode
+**/*.csv
+**/*.pkl
+**/*.png
+**/*.xlsx
