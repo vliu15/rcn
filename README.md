@@ -1,5 +1,5 @@
 # Recurrent Neural Networks as Central Pattern Generators
-In our [previous repository](https://github.com/vliu15/CPG-RL), we explored various models that could improve upon the baseline Multilayer Perceptron policy baseline. We found that Recurrent Neural Networks work pretty well and intend to explore the recurrent architecture in depth in this repository. Additionally, the addition of gates and enhanced memory (i.e. Gated Recurrent Units, Long Short-Term Memories) decreased performance in these tasks.
+In our [previous repository](https://github.com/vliu15/CPG-RL), we explored various models that could improve upon the baseline Multilayer Perceptron policy baseline. We found that Recurrent Neural Networks work pretty well and intend to explore the recurrent architecture in depth in this repository. Additionally, the addition of gates and enhanced memory (i.e. Gated Recurrent Units, Long Short-Term Memories) decreased performance in these tasks. As a result, we only focus on vanilla Recurrent Neural Networks.
 
 ## Environment
 We continue to use MuJoCo environments with OpenAI Gym as our means of testing our models. We find that MuJoCo provides a variety of different locomotive tasks that force a model to learn movements along different axes requiring different amounts of complexities.
