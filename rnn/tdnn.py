@@ -29,14 +29,13 @@ class TimeDelayNeuralNetwork(object):
         kernel_initializer = tdnn_params["kernel_initializer"]
         bias_initializer = tdnn_params["bias_initializer"]
 
-        # width: length of memory
-        # width is determined from window sizes and number of hidden layers
-        # so that after all convolutions, the output will be the action vector
+        # width: length of memory, determined from window sizes and number of hidden
+        # layers so that after all convolutions, the output will be the action vector
         width = 1
         for _ in range(len(layers) + 1):
             width = (width - 1) * self.stride + self.window
-        # initialize time series
-        # stores sequence of observations
+            
+        # initialize time series: sequence of observations
         self.series = np.zeros(shape=(width, input_size))
 
         # initialize convolution kernels
