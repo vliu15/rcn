@@ -6,7 +6,7 @@ import csv
 import sys
 import os
 
-from rnn.rnn import RecurrentNeuralNetwork
+from models.rnn import RecurrentNeuralNetwork
 from es.evostra import EvolutionStrategy
 from config import map_str_model
 

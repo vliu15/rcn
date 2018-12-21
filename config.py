@@ -1,8 +1,8 @@
 import numpy as np
-from rnn.rnn import RecurrentNeuralNetwork
-from rnn.rcn import RecurrentControlNet
-from rnn.tdnn import TimeDelayNeuralNetwork
-from rnn.tdcn import TimeDelayControlNet
+from models.rnn import RecurrentNeuralNetwork
+from models.rcn import RecurrentControlNet
+from models.tdnn import TimeDelayNeuralNetwork
+from models.tdcn import TimeDelayControlNet
 import utils.activations as a
 import utils.initializers as i
 
