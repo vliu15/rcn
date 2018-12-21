@@ -1,15 +1,17 @@
 import numpy as np
-import rnn.base as r
-import rnn.rcn as s
-import rnn.tdnn as t
+from rnn.rnn import RecurrentNeuralNetwork
+from rnn.rcn import RecurrentControlNet
+from rnn.tdnn import TimeDelayNeuralNetwork
+# from rnn.tdcn import TimeDelayControlNet
 import utils.activations as a
 import utils.initializers as i
 
 # select model from command line arg
 map_str_model = {
-    'rnn': r.RecurrentNeuralNetwork,
-    'rcn': s.RecurrentControlNet,
-    'tdnn': t.TimeDelayNeuralNetwork
+    'rnn': RecurrentNeuralNetwork,
+    'rcn': RecurrentControlNet,
+    'tdnn': TimeDelayNeuralNetwork,
+    # 'tdcn': TimeDelayControlNet
 }
 
 # base recurrent neural network
