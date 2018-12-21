@@ -1,6 +1,6 @@
 import numpy as np
 
-def convolve(self, series, kernel, bias, stride, window):
+def convolve(series, kernel, bias, stride, window):
     """
     Performs 1-D convolution along the time axis
 
