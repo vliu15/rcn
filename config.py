@@ -16,11 +16,11 @@ map_str_model = {
 
 ## ==== UNGATED RECURRENT MODELS ==== ##
 # base recurrent neural network
-base_params = {
+rnn_params = {
     'layer_activation': np.tanh,
     'hidden_size': 32,
-    'kernel_initializer': np.zeros,
-    'bias_initializer': np.zeros,
+    'kernel_initializer': i.constant(0),
+    'bias_initializer': i.constant(0),
     'use_bias': True
 }
 
@@ -29,13 +29,13 @@ rcn_params = {
     # nonlinear module
     'layer_activation': np.tanh,
     'hidden_size': 32,
-    'n_kernel_initializer': np.zeros,
-    'n_bias_initializer': np.zeros,
+    'n_kernel_initializer': i.constant(0),
+    'n_bias_initializer': i.constant(0),
     'n_use_bias': True,
 
     # linear module
-    'l_kernel_initializer': np.zeros,
-    'l_bias_initializer': np.zeros,
+    'l_kernel_initializer': i.constant(0),
+    'l_bias_initializer': i.constant(0),
     'l_use_bias': True
 }
 
@@ -46,8 +46,8 @@ tdnn_params = {
     'stride': 1,
     'window': 15,
     'layers': [16],
-    'kernel_initializer': np.zeros,
-    'bias_initializer': np.zeros,
+    'kernel_initializer': i.constant(0),
+    'bias_initializer': i.constant(0),
     'use_bias': True
 }
 
@@ -57,13 +57,13 @@ tdcn_params = {
     'layer_activation': np.tanh,
     'stride': 1,
     'window': 15,
-    'layers': [16],
-    'n_kernel_initializer': np.zeros,
-    'n_bias_initializer': np.zeros,
+    'layers': [32],
+    'n_kernel_initializer': i.constant(0),
+    'n_bias_initializer': i.constant(0),
     'n_use_bias': True,
 
     # linear module
-    'l_kernel_initializer': np.zeros,
-    'l_bias_initializer': np.zeros,
+    'l_kernel_initializer': i.constant(0),
+    'l_bias_initializer': i.constant(0),
     'l_use_bias': True
 }
