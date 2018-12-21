@@ -12,13 +12,13 @@ class RecurrentNeuralNetwork(object):
     """
     def __init__(self, input_size, output_size, every_t=True):
         self.every_t = every_t
-        from config import base_params
+        from config import rnn_params
         # import rnn parameters
-        self.layer_activation = base_params["layer_activation"]
-        self.use_bias = base_params["use_bias"]
-        hidden_size = base_params["hidden_size"]
-        kernel_initializer = base_params["kernel_initializer"]
-        bias_initializer = base_params["bias_initializer"]
+        self.layer_activation = rnn_params["layer_activation"]
+        self.use_bias = rnn_params["use_bias"]
+        hidden_size = rnn_params["hidden_size"]
+        kernel_initializer = rnn_params["kernel_initializer"]
+        bias_initializer = rnn_params["bias_initializer"]
         # initialize rnn weights
         self.h = np.zeros(shape=(hidden_size, 1))                           # hidden state
         self.w_ih = kernel_initializer(shape=(hidden_size, input_size))     # input -> hidden
