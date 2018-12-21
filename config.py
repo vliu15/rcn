@@ -40,8 +40,8 @@ rcn_params = {
 tdnn_params = {
     'layer_activation': np.tanh,
     'stride': 1,
-    'window': 5,
-    'layers': [32, 16],
+    'window': 15,
+    'layers': [16],
     'kernel_initializer': np.zeros,
     'bias_initializer': np.zeros,
     'use_bias': True
