@@ -6,11 +6,16 @@ from utils.layers import convolve
 class TimeDelayNeuralNetwork(object):
     """
     Architecture:
-                   OUTPUT(t)
-                      |
-    HIDDEN(t-1) -> HIDDEN(t) -> ...
-                      |
-                   INPUT(t)
+    
+    TIME_SERIES: [o(t-i), ..., o(t-3), o(t-2), o(t-1), o(t)]
+        where i is the length of the time series "memory"
+        determined by window size and number of conv layers
+
+    CONV_BLOCK: conv: in_channels -> out_channels + layer activation
+        each block performs a 1-d convolution along the time axis
+        and changes the number of channels (observation -> action shapes)
+
+    TIME_SERIES -> CONV_BLOCK -> ... -> CONV_BLOCK -> OUTPUT
     """
     def __init__(self, input_size, output_size, every_t=True):
         self.every_t = every_t
@@ -51,7 +56,6 @@ class TimeDelayNeuralNetwork(object):
             conv_out = self.layer_activation(conv_out)
         
         return conv_out
-
 
     def get_weights(self):
         if self.use_bias:
