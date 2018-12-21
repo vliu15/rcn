@@ -28,12 +28,30 @@ This repository is dedicated to exploring the efficacy of Recurrent Neural Netwo
 The most basic Recurrent Neural Network, this model is our baseline (with hidden size 32). The RNN has:
 - 3 weight kernels
 - 2 bias vectors, should the `use_bias` flag be set to `True`
+- Layer activations after each kernel mapping
 
 ### Recurrent Control Net (RCN)
 Building off the idea of linear and nonlinear control modules outlined in [this](https://arxiv.org/abs/1802.08311) paper, the Recurrent Control Net uses a vanilla RNN as the nonlinear module and a simple linear mapping as the linear module. The RCN has:
 - Nonlinear module:
   - 3 weight kernels
   - 2 bias vectors, should the `n_use_bias` flags be set to `True`
+  - Layer activations after each kernel mapping
+- Linear module:
+  - 1 weight kernel
+  - 1 bias vector, should the `l_use_bias` flag be set to `True`
+
+### Time-Delay Neural Network (TDNN)
+Inspired (and taken) from the Time-Delay Neural Networks used in [Deep Speech 2](https://arxiv.org/abs/1512.02595) for speech recognition, the TDNN performs a 1-D convolution along the time axis across past observations. This aims to learn patterns in past observations (at different levels of granularity). The TDNN has:
+- Convolutional kernels (# set in `config.py`): operate without padding and change the number of channels
+- Corresponding bias vectors, should the `use_bias` flag be set to `True`
+- Layer activations after each convolution
+
+### Time-Delay Control Net (TDCN)
+Building off the idea of linear and nonlinear control modules outlined in [this](https://arxiv.org/abs/1802.08311) paper, the Time-Delay Control Net uses a TDNN as the nonlinear module and a simple linear mapping as the linear module. The TDCN has:
+- Nonlinear module:
+  - Convolutional kernels (# set in `config.py`): operate without padding and change the number of channels
+  - Corresponding bias vectors, should the `n_use_bias` flag be set to `True`
+  - Layer activations after each convolution
 - Linear module:
   - 1 weight kernel
   - 1 bias vector, should the `l_use_bias` flag be set to `True`
