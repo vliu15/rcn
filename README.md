@@ -41,7 +41,7 @@ Building off the idea of linear and nonlinear control modules outlined in [this]
   - 1 bias vector, should the `l_use_bias` flag be set to `True`
 
 ### Time-Delay Neural Network (TDNN)
-Inspired (and taken) from the Time-Delay Neural Networks used in [Deep Speech 2](https://arxiv.org/abs/1512.02595) for speech recognition, the TDNN performs a 1-D convolution along the time axis across past observations. This aims to learn patterns in past observations (at different levels of granularity). The TDNN has:
+Inspired by [Deep Speech 2](https://arxiv.org/abs/1512.02595) for speech recognition, the TDNN performs a 1-D convolution along the time axis across past observations. This aims to learn patterns in past observations (at different levels of granularity). The TDNN has:
 - Convolutional kernels (# set in `config.py`): operate without padding and change the number of channels
 - Corresponding bias vectors, should the `use_bias` flag be set to `True`
 - Layer activations after each convolution
