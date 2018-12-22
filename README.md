@@ -87,7 +87,7 @@ Building off the idea of linear and nonlinear control modules outlined in [this]
   - 1 bias vector, should the `l_use_bias` flag be set to `True`
 
 ## Citation
-To cite this repository in publications
+To cite this repository in publications:
 ```
 @misc{RNN-CPG,
     author={Liu, Vincent},
