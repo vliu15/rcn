@@ -93,7 +93,9 @@ def plot(args):
         # calculate average of all (env, model) files if necessary
         avg_file = os.path.join(IN_DIR, 'env_{}_model_{}_avg.csv'.format(env, a))
         if not os.path.exists(avg_file) or overwrite:
-            average(env, a, files)
+            # filter out existing avg file
+            files_ = [i for i in files if 'avg' not in i]
+            average(env, a, files_)
 
         with open(avg_file, 'r') as c:
             csv_reader = csv.reader(c, delimiter=',')
