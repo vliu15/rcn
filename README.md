@@ -85,3 +85,17 @@ Building off the idea of linear and nonlinear control modules outlined in [this]
 - Linear module:
   - 1 weight kernel
   - 1 bias vector, should the `l_use_bias` flag be set to `True`
+
+## Citation
+To cite this repository in publications
+```
+@misc{RNN-CPG,
+    author={Liu, Vincent},
+    contributors={Adeniji, Ademi and Lee, Nate and Zhao, Jason},
+    title={Recurrent Neural Networks as Central Pattern Generators},
+    year={2018},
+    publisher={GitHub},
+    journal={GitHub repository},
+    howpublished={\url{https://github.com/vliu15/RNN-CPG}},
+}
+```
