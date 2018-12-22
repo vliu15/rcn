@@ -30,7 +30,6 @@ mlp_params = {
     'bias_initializer': i.constant(0),
     'use_bias': False
 }
-
 # structured control net baseline
 scn_params = {
     # nonlinear module
@@ -46,7 +45,7 @@ scn_params = {
     'l_use_bias': False
 }
 
-## ==== UNGATED RECURRENT MODELS ==== ##
+## ==== RECURRENT MODELS ==== ##
 # base recurrent neural network
 rnn_params = {
     'layer_activation': np.tanh,
@@ -55,7 +54,6 @@ rnn_params = {
     'bias_initializer': i.constant(0),
     'use_bias': True
 }
-
 # recurrent control net
 rcn_params = {
     # nonlinear module
@@ -82,7 +80,6 @@ tdnn_params = {
     'bias_initializer': i.constant(0),
     'use_bias': True
 }
-
 # time delay control net
 tdcn_params = {
     # nonlinear module
