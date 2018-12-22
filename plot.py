@@ -1,11 +1,7 @@
-import matplotlib.pyplot as plt
 from matplotlib import interactive
-from scipy.interpolate import make_interp_spline, BSpline
-import csv
+import matplotlib.pyplot as plt
+import sys, os, argparse, csv
 import numpy as np
-import sys, os, argparse
-from tqdm import tqdm
-import collections
 
 interactive(True)
 
@@ -34,16 +30,16 @@ def average(env, model, files):
     Writes averages of trainings to the file 'env_{}_model_{}_avg.csv'.format(env, model).
     Note: .csv files may not align with timestep logging
     """
-    print("Averaging {} files for environment {} with model {}...".format(len(files), env, MODELS[ABBRVS.index(model)]))
+    print("Averaging {} files for {} with {}...".format(len(files), env, MODELS[ABBRVS.index(model)]))
 
     # logs maps timestep to reward
     logs = {}
     counts = {}
     print("Compiling averages...")
-    for f in tqdm(files):
+    for f in files:
         with open(os.path.join(IN_DIR, f), 'r') as c:
             csv_reader = csv.reader(c, delimiter=',')
-            for row in tqdm(csv_reader):
+            for row in csv_reader:
                 x = float(row[0])
                 y = float(row[1])
                 # compute new reward y at timestep x
