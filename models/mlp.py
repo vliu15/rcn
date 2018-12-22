@@ -3,7 +3,6 @@ MultilayerPerceptron taken from https://github.com/alirezamika/evostra/blob/mast
 """
 
 import numpy as np
-import copy
 
 class MultilayerPerceptron(object):
     """

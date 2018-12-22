@@ -80,7 +80,7 @@ def plot(args):
         [str(x/1000000) + 'M' for x in range(0, max_timestep+1, timescale)])
     plt.xlabel('Timesteps')
     plt.ylabel('Episodic Reward')
-    plt.title('Episodic Reward, {}'.format(env))
+    plt.title('{} (moving-average width={})'.format(env, avg_window))
 
     # iterate through each model for plotting
     for m, a in zip(MODELS, ABBRVS):
@@ -124,7 +124,7 @@ def main():
     # required_args = parser.add_argument_group('required arguments')
     parser.add_argument('--env', nargs=1, type=str, help='environment to plot')
     # plot parameters
-    parser.add_argument('--avg_window', nargs='?', type=int, default=1000, help='moving average window')
+    parser.add_argument('--avg_window', nargs='?', type=int, default=100, help='moving average window')
     parser.add_argument('--max_timestep', nargs='?', type=int, default=10000000, help='max timestep to plot to')
     parser.add_argument('--timescale', nargs='?', type=int, default=2000000, help='timestep scale')
     parser.add_argument('--overwrite', action='store_true', default=False, dest='overwrite', help='overwrite existing avg')

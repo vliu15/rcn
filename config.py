@@ -3,6 +3,7 @@ from models.mlp import MultilayerPerceptron
 from models.scn import StructuredControlNet
 from models.rnn import RecurrentNeuralNetwork
 from models.rcn import RecurrentControlNet
+from models.lstm import LongShortTermMemory
 from models.tdnn import TimeDelayNeuralNetwork
 from models.tdcn import TimeDelayControlNet
 import utils.activations as a
@@ -17,6 +18,9 @@ map_str_model = {
     # custom models
     'rnn': RecurrentNeuralNetwork,
     'rcn': RecurrentControlNet,
+
+    'lstm': LongShortTermMemory,
+
     'tdnn': TimeDelayNeuralNetwork,
     'tdcn': TimeDelayControlNet
 }
@@ -67,6 +71,16 @@ rcn_params = {
     'l_kernel_initializer': i.constant(0),
     'l_bias_initializer': i.constant(0),
     'l_use_bias': True
+}
+
+# long short term memory
+lstm_params = {
+    'layer_activation': np.tanh,
+    'gate_activation': np.tanh,
+    'cell_activation': a.sigmoid,
+    'kernel_initializer': i.uniform(0),
+    'bias_initializer': i.constant(0),
+    'use_bias': False
 }
 
 ## ==== TIME DELAY MODELS ==== ##
