@@ -2,18 +2,48 @@
 In our [previous repository](https://github.com/vliu15/CPG-RL), we explored various models that could improve upon the baseline Multilayer Perceptron policy baseline. We found that Recurrent Neural Networks work pretty well and intend to explore the recurrent architecture in depth in this repository. Additionally, the addition of gates and enhanced memory (i.e. Gated Recurrent Units, Long Short-Term Memories) decreased performance in these tasks. As a result, we only focus on vanilla Recurrent Neural Networks.
 
 ## Usage
-See the [CPG-RL](https://github.com/vliu15/CPG-RL) repository for installing dependencies for MuJoCo.
+We provide scripts to design and train models. Upon exit, the weights of that training session are automatically saved. Below are run commands to render the environment with pretrained weights as well as log episodic reward during training.
+
+To setup, see the [CPG-RL](https://github.com/vliu15/CPG-RL) repository for installing dependencies for MuJoCo.
 ```
 # clone repository
 git clone https://github.com/vliu15/RNN-CPG
 cd RNN-CPG
+```
 
+### Training
+In data collecting mode, the logs are written to `.csv` files in `data`. Weights are automatically saved as `.pkl` files in `weights`.
+```
 # train on environments
 python3 run.py --model rnn \
-    --env Swimmer-v2 \
+    --env HalfCheetah-v2 \
     --num_timesteps 2000000
+
+# log training for plotting
+python3 run.py --model rnn \
+    --env HalfCheetah-v2 \
+    --num_timesteps 2000000 \
+    --collect_data
 ```
-See `utils/cli_parser.py` for all command line arguments for training.
+
+### Rendering
+```
+# render with pretrained weights
+python3 run.py --model rnn \
+    --env HalfCheetah-v2 \
+    --num_timesteps 2000000 \
+    --render \
+    --weights_file /path/to/weights_file
+```
+
+### Logging
+Plots are written to `.png` files in `plots`.
+```
+# log episodic reward vs timestep, env is mandatory
+python3 plot.py --env HalfCheetah-v2 \
+    --moving_avg \
+    --avg_window 100
+```
 
 ## Environment
 We continue to use MuJoCo v2 environments with OpenAI Gym as our means of testing our models. We find that MuJoCo provides a variety of different locomotive tasks that force a model to learn movements along different axes requiring different amounts of complexities.
