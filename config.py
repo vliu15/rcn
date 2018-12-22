@@ -19,7 +19,7 @@ map_str_model = {
 rnn_params = {
     'layer_activation': np.tanh,
     'hidden_size': 32,
-    'kernel_initializer': i.constant(0),
+    'kernel_initializer': i.constant(1e-3),
     'bias_initializer': i.constant(0),
     'use_bias': True
 }

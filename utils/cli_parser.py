@@ -8,8 +8,8 @@ def arg_parser():
     # adjust for trials as desired
     parser.add_argument('--env', help='environment ID', nargs='?', type=str, default='Swimmer-v2')
     parser.add_argument('--num_iters', help='number of iterations to train for', nargs='?', type=int, default=1000000)
-    parser.add_argument('--num_timesteps', help='number of timesteps to train for', nargs='?', type=int, default=2000000)
-    parser.add_argument('--model', help='model to run', nargs='?', type=str, default='scn')
+    parser.add_argument('--num_timesteps', help='number of timesteps to train for', nargs='?', type=int, default=4000000)
+    parser.add_argument('--model', help='model to run', nargs='?', type=str, default='rnn')
 
     # adjust for training stats
     parser.add_argument('--collect_data', action='store_true', default=False, dest='collect_data', help='allow data collection')
