@@ -6,7 +6,7 @@ import numpy as np
 interactive(True)
 
 ENVS = ['Hopper-v2', 'Swimmer-v2', 'Walker2d-v2', 'HalfCheetah-v2', 'Humanoid-v2', 'Reacher-v2']
-MODELS = ['MultilayerPerceptron', 'StructuredControlNet', 'RecurrentNeuralNetork', 'RecurrentControlNet']
+MODELS = ['MultilayerPerceptron', 'StructuredControlNet', 'RecurrentNeuralNetwork', 'RecurrentControlNet']
 ABBRVS = ['mlp', 'scn', 'rnn', 'rcn']
 
 # input directory must exist
@@ -65,7 +65,6 @@ def plot(args):
     env = args.env[0]
     max_timestep = args.max_timestep
     timescale = args.timescale
-    moving_avg = args.moving_avg
     avg_window = args.avg_window
     overwrite = args.overwrite
 
@@ -106,7 +105,7 @@ def plot(args):
             x = np.array(x)
             y = np.array(y)
             print('Lines read: {}'.format(x.shape[0]))
-            if moving_avg:
+            if avg_window > 1:
                 y_moveavg = moving_average(y, avg_window)
                 y_moveavg = np.append(y_moveavg, [y_moveavg[-1]] * (avg_window - 1))
                 plt.plot(x, y_moveavg, label=a)
@@ -125,8 +124,7 @@ def main():
     # required_args = parser.add_argument_group('required arguments')
     parser.add_argument('--env', nargs=1, type=str, help='environment to plot')
     # plot parameters
-    parser.add_argument('--moving_avg', action='store_true', default=False, dest='moving_avg', help='use moving avg in plots')
-    parser.add_argument('--avg_window', nargs='?', type=int, default=100, help='moving average window')
+    parser.add_argument('--avg_window', nargs='?', type=int, default=1000, help='moving average window')
     parser.add_argument('--max_timestep', nargs='?', type=int, default=10000000, help='max timestep to plot to')
     parser.add_argument('--timescale', nargs='?', type=int, default=2000000, help='timestep scale')
     parser.add_argument('--overwrite', action='store_true', default=False, dest='overwrite', help='overwrite existing avg')

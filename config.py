@@ -75,7 +75,7 @@ tdnn_params = {
     'layer_activation': np.tanh,
     'stride': 1,
     'window': 15,
-    'layers': [16],
+    'layers': [32],
     'kernel_initializer': i.constant(0),
     'bias_initializer': i.constant(0),
     'use_bias': True
@@ -86,7 +86,7 @@ tdcn_params = {
     'layer_activation': np.tanh,
     'stride': 1,
     'window': 15,
-    'layers': [32],
+    'layers': [16],
     'n_kernel_initializer': i.constant(0),
     'n_bias_initializer': i.constant(0),
     'n_use_bias': True,
