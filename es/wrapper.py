@@ -39,7 +39,7 @@ class EvolutionaryStrategyWrapper(object):
         # es parameters
         self.env = gym.make(args.env)
         Model = map_str_model.get(args.model, RecurrentNeuralNetwork)
-        print("Running {}...".format(Model.__name__))
+        print("Running {}: {} Environment, {} Max Timesteps".format(Model.__name__, args.env, args.num_timesteps))
         self.model = Model(self.env.observation_space.shape[0], self.env.action_space.shape[0])
         self.es = EvolutionStrategy(self.model.get_weights(), self.get_reward, self.POPULATION_SIZE,
                                     self.SIGMA, self.LEARNING_RATE, num_threads=self.NUM_THREADS)
@@ -150,5 +150,5 @@ class EvolutionaryStrategyWrapper(object):
         print("Reached max timesteps for training.")
         print("Saving weights...")
         self.save(os.path.join('weights',
-            'weights_{}_model_{}.pkl'.format(self.env_name, self.model_name)))
+            'env_{}_model_{}.pkl'.format(self.env_name, self.model_name)))
         sys.exit(0)

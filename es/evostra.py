@@ -79,7 +79,7 @@ class EvolutionStrategy(object):
             self._update_weights(rewards, population)
 
             if (iteration + 1) % print_step == 0:
-                print('iter %d. reward: %f' % (iteration + 1, self.get_reward(self.weights)))
+                print('Iteration %d. Reward: %f' % (iteration + 1, self.get_reward(self.weights)))
         if pool is not None:
             pool.close()
             pool.join()

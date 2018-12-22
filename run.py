@@ -17,7 +17,7 @@ def main():
     else:
         if not os.path.exists('weights'):
             os.makedirs('weights')
-        path = os.path.join('weights', 'weights_{}_model_{}.pkl'.format(args.env, args.model))
+        path = os.path.join('weights', 'env_{}_model_{}.pkl'.format(args.env, args.model))
         # run until end of iterations
         try:
             agent.train(args.num_iters)
