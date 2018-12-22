@@ -12,13 +12,17 @@ cd RNN-CPG
 ```
 
 ### Training
-In data collecting mode, the logs are written to `.csv` files in `data`. Weights are automatically saved as `.pkl` files in `weights`.
+Weights from training are automatically saved as `.pkl` files in `weights`.
 ```
 # train on environments
 python3 run.py --model rnn \
     --env HalfCheetah-v2 \
     --num_timesteps 2000000
+```
 
+### Logging
+In data collecting mode, the logs are written to `.csv` files in `data`.
+```
 # log training for plotting
 python3 run.py --model rnn \
     --env HalfCheetah-v2 \
@@ -36,12 +40,11 @@ python3 run.py --model rnn \
     --weights_file /path/to/weights_file
 ```
 
-### Logging
+### Plotting
 Plots are written to `.png` files in `plots`.
 ```
 # log episodic reward vs timestep, env is mandatory
 python3 plot.py --env HalfCheetah-v2 \
-    --moving_avg \
     --avg_window 100
 ```
 
