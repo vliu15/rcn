@@ -1,5 +1,5 @@
-# Recurrent Neural Networks as Central Pattern Generators
-In our [previous repository](https://github.com/vliu15/CPG-RL), we explored various models that could improve upon the baseline Multilayer Perceptron policy baseline. We found that Recurrent Neural Networks work pretty well and intend to explore the recurrent architecture in depth in this repository. Additionally, the addition of gates and enhanced memory (i.e. Gated Recurrent Units, Long Short-Term Memories) decreased performance in these tasks. As a result, we only focus on vanilla Recurrent Neural Networks.
+# Recurrent Control Nets as Central Pattern Generators
+In our [previous repository](https://github.com/vliu15/CPG-RL), we explored various models that could improve upon the baseline Multilayer Perceptron policy baseline and found that Recurrent Neural Networks work well. In this repository, we provide our code for our Recurrent Control Net, which beats Multilayer Perceptron and Structured Control Net baselines.
 
 ## Usage
 We provide scripts to design and train models. Upon exit, the weights of that training session are automatically saved. Below are run commands to render the environment with pretrained weights as well as log episodic reward during training.
@@ -15,7 +15,7 @@ cd RNN-CPG
 Weights from training are automatically saved as `.pkl` files in `weights`.
 ```
 # train on environments
-python3 run.py --model rnn \
+python3 run.py --model rcn \
     --env HalfCheetah-v2 \
     --num_timesteps 2000000
 ```
@@ -24,7 +24,7 @@ python3 run.py --model rnn \
 In data collecting mode, the logs are written to `.csv` files in `data`.
 ```
 # log training for plotting
-python3 run.py --model rnn \
+python3 run.py --model rcn \
     --env HalfCheetah-v2 \
     --num_timesteps 2000000 \
     --collect_data
@@ -33,7 +33,7 @@ python3 run.py --model rnn \
 ### Rendering
 ```
 # render with pretrained weights
-python3 run.py --model rnn \
+python3 run.py --model rcn \
     --env HalfCheetah-v2 \
     --num_timesteps 2000000 \
     --render \
@@ -54,16 +54,7 @@ We continue to use MuJoCo v2 environments with OpenAI Gym as our means of testin
 ## Optimizer
 We use Evolutionary Strategies as our optimization algorithm, as training through disturbance by random Gaussian noise has been proven to be very effective. We do not use another top alternative, OpenAI's Proximal Policy Optimization, because of its inflexibility to Recurrent Neural Networks (and extremely poor documentation).
 
-## Models
-This repository is dedicated to exploring the efficacy of Recurrent Neural Networks. We have the following models, the hyperparameters to which are in `config.py`.
-
-### Vanilla Recurrent Neural Network (RNN)
-The most basic Recurrent Neural Network, this model is our baseline (with hidden size 32). The RNN has:
-- 3 weight kernels
-- 2 bias vectors, should the `use_bias` flag be set to `True`
-- Layer activations after each kernel mapping
-
-### Recurrent Control Net (RCN)
+## Recurrent Control Net (RCN)
 Building off the idea of linear and nonlinear control modules outlined in [this](https://arxiv.org/abs/1802.08311) paper, the Recurrent Control Net uses a vanilla RNN as the nonlinear module and a simple linear mapping as the linear module. The RCN has:
 - Nonlinear module:
   - 3 weight kernels
@@ -72,22 +63,8 @@ Building off the idea of linear and nonlinear control modules outlined in [this]
 - Linear module:
   - 1 weight kernel
   - 1 bias vector, should the `l_use_bias` flag be set to `True`
-
-### Time-Delay Neural Network (TDNN)
-Inspired by [Deep Speech 2](https://arxiv.org/abs/1512.02595) for speech recognition, the TDNN performs a 1-D convolution along the time axis across past observations. This aims to learn patterns in past observations (at different levels of granularity). The TDNN has:
-- Convolutional kernels (# set in `config.py`): operate without padding and change the number of channels
-- Corresponding bias vectors, should the `use_bias` flag be set to `True`
-- Layer activations after each convolution
-
-### Time-Delay Control Net (TDCN)
-Building off the idea of linear and nonlinear control modules outlined in [this](https://arxiv.org/abs/1802.08311) paper, the Time-Delay Control Net uses a TDNN as the nonlinear module and a simple linear mapping as the linear module. The TDCN has:
-- Nonlinear module:
-  - Convolutional kernels (# set in `config.py`): operate without padding and change the number of channels
-  - Corresponding bias vectors, should the `n_use_bias` flag be set to `True`
-  - Layer activations after each convolution
-- Linear module:
-  - 1 weight kernel
-  - 1 bias vector, should the `l_use_bias` flag be set to `True`
+  
+We find that not using biases yields best results with Evolutionary Strategies as the training algorithm.
 
 ## Citation
 To cite this repository in publications:
@@ -95,10 +72,10 @@ To cite this repository in publications:
 @misc{RNN-CPG,
     author={Liu, Vincent},
     contributors={Adeniji, Ademi and Lee, Nate and Zhao, Jason},
-    title={Recurrent Neural Networks as Central Pattern Generators},
+    title={Recurrent Control Nets as Central Pattern Generators},
     year={2018},
     publisher={GitHub},
     journal={GitHub repository},
-    howpublished={\url{https://github.com/vliu15/RNN-CPG}},
+    howpublished={\url{https://github.com/vliu15/RecurrentControlNets}},
 }
 ```
