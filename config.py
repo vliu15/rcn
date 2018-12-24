@@ -105,7 +105,7 @@ tdnn_params = {
     'layers': [32],
     'kernel_initializer': i.constant(0),
     'bias_initializer': i.constant(0),
-    'use_bias': True
+    'use_bias': False
 }
 # time delay control net
 tdcn_params = {
@@ -116,10 +116,10 @@ tdcn_params = {
     'layers': [16],
     'n_kernel_initializer': i.constant(0),
     'n_bias_initializer': i.constant(0),
-    'n_use_bias': True,
+    'n_use_bias': False,
 
     # linear module
     'l_kernel_initializer': i.constant(0),
     'l_bias_initializer': i.constant(0),
-    'l_use_bias': True
+    'l_use_bias': False
 }
