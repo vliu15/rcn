@@ -9,21 +9,25 @@ class LongShortTermMemory(object):
         self.gate_activation = lstm_params["gate_activation"]
         self.cell_activation = lstm_params["cell_activation"]
         self.use_bias = lstm_params["use_bias"]
+        hidden_size = lstm_params["hidden_size"]
         kernel_initializer = lstm_params["kernel_initializer"]
         bias_initializer = lstm_params["bias_initializer"]
 
         # initialize lstm parameters
-        self.h = np.zeros(shape=(output_size, 1))                       # hidden state
-        self.c = np.zeros(shape=(output_size, 1))                       # lstm hidden cell
-        w_i = kernel_initializer(shape=(output_size, input_size))       # input -> hidden
-        w_h = kernel_initializer(shape=(output_size, output_size))      # hidden -> hidden, output
+        self.h = np.zeros(shape=(hidden_size, 1))                       # hidden state
+        self.c = np.zeros(shape=(hidden_size, 1))                       # lstm hidden cell
+        w_i = kernel_initializer(shape=(hidden_size, input_size))       # input -> hidden
+        w_h = kernel_initializer(shape=(hidden_size, hidden_size))      # hidden -> hidden
+        w_a = kernel_initializer(shape=(output_size, hidden_size))      # hidden -> output
 
-        self.b = [bias_initializer(shape=(output_size, 1))] * 4         # biases
+        self.b = [bias_initializer(shape=(hidden_size, 1))] * 4         # biases
+        self.b.append(bias_initializer(shape=(output_size, 1)))
 
         self.w_f = [w_i, w_h]   # forget gate
         self.w_i = [w_i, w_h]   # input gate
         self.w_o = [w_i, w_h]   # output gate
         self.w_c = [w_i, w_h]   # lstm hidden cell
+        self.w_a = w_a
         
     def predict(self, inp):
         inp = np.expand_dims(inp.flatten(), 0)
@@ -43,12 +47,14 @@ class LongShortTermMemory(object):
         # update hidden state
         self.h = o * self.layer_activation(self.c)
 
-        return np.clip(self.h.T, -1, 1)
+        out = np.matmul(self.w_a, self.h) + self.b[4]
+
+        return np.clip(out.T, -1, 1)
 
     def get_weights(self):
         if self.use_bias:
-            return self.w_f + self.w_i + self.w_o + self.w_c + self.b
-        return self.w_f + self.w_i + self.w_o + self.w_c
+            return self.w_f + self.w_i + self.w_o + self.w_c + [self.w_a] + self.b
+        return self.w_f + self.w_i + self.w_o + self.w_c + [self.w_a]
 
     def set_weights(self, weights):
         idx = 0
@@ -68,6 +74,8 @@ class LongShortTermMemory(object):
         len_c = len(self.w_c)
         self.w_c = weights[idx:idx+len_c]
         idx += len_c
+        # set output weight
+        self.w_a = weights[idx]
         # set biases
         if self.use_bias:
-            self.b = weights[idx:]
+            self.b = weights[idx+1:]

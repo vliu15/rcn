@@ -3,6 +3,7 @@ from models.mlp import MultilayerPerceptron
 from models.scn import StructuredControlNet
 from models.rnn import RecurrentNeuralNetwork
 from models.rcn import RecurrentControlNet
+from models.gru import GatedRecurrentUnit
 from models.lstm import LongShortTermMemory
 from models.tdnn import TimeDelayNeuralNetwork
 from models.tdcn import TimeDelayControlNet
@@ -19,6 +20,7 @@ map_str_model = {
     'rnn': RecurrentNeuralNetwork,
     'rcn': RecurrentControlNet,
 
+    'gru': GatedRecurrentUnit,
     'lstm': LongShortTermMemory,
 
     'tdnn': TimeDelayNeuralNetwork,
@@ -65,12 +67,22 @@ rcn_params = {
     'hidden_size': 32,
     'n_kernel_initializer': i.constant(0),
     'n_bias_initializer': i.constant(0),
-    'n_use_bias': True,
+    'n_use_bias': False,
 
     # linear module
     'l_kernel_initializer': i.constant(0),
     'l_bias_initializer': i.constant(0),
-    'l_use_bias': True
+    'l_use_bias': False
+}
+
+# gated recurrent unit
+gru_params = {
+    'layer_activation': np.tanh,
+    'gate_activation': np.tanh,
+    'hidden_size': 32,
+    'kernel_initializer': i.uniform(0),
+    'bias_initializer': i.constant(0),
+    'use_bias': False
 }
 
 # long short term memory
@@ -78,6 +90,7 @@ lstm_params = {
     'layer_activation': np.tanh,
     'gate_activation': np.tanh,
     'cell_activation': a.sigmoid,
+    'hidden_size': 32,
     'kernel_initializer': i.uniform(0),
     'bias_initializer': i.constant(0),
     'use_bias': False

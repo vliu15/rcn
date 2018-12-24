@@ -5,9 +5,23 @@ import numpy as np
 
 interactive(True)
 
-ENVS = ['Hopper-v2', 'Swimmer-v2', 'Walker2d-v2', 'HalfCheetah-v2', 'Humanoid-v2', 'Reacher-v2']
+ENVS = ['Hopper-v2', 'Swimmer-v2', 'Walker2d-v2', 'HalfCheetah-v2', 'Humanoid-v2', 'HumanoidStandup-v2']
+
+# for plotting baselines against each other
 MODELS = ['MultilayerPerceptron', 'StructuredControlNet', 'RecurrentNeuralNetwork', 'RecurrentControlNet']
 ABBRVS = ['mlp', 'scn', 'rnn', 'rcn']
+
+# for plotting recurrent architectures against each other
+# MODELS = ['RecurrentNeuralNetwork', 'GatedRecurrentUnit', 'LongShortTermMemory']
+# ABBRVS = ['rnn', 'gru', 'lstm']
+
+# for plotting different initializations of RNNs
+# MODELS = ['RecurrentNeuralNetwork,GaussianInit', 'RecurrentNeuralNetwork,UniformInit', 'RecurrentNeuralNetwork,ConstantInit', 'RecurrentNeuralNetwork,ZeroInit']
+# ABBRVS = ['rnn-gaussian', 'rnn-uniform', 'rnn-constant', 'rnn-zero']
+
+# for plotting RCNs for bias vector testing
+# MODELS = ['RecurrentControlNet,WithBias', 'RecurrentControlNet,NoBias']
+# ABBRVS = ['rnn_nobias', 'rnn_bias']
 
 # input directory must exist
 IN_DIR = os.path.join(os.getcwd(), 'data')
@@ -70,7 +84,7 @@ def plot(args):
 
     # obtain .csv files corresponding to env
     f_ = list(os.listdir(IN_DIR))
-    f = [i for i in f_ if env in i]
+    f = [i for i in f_ if '_{}_'.format(env) in i]
     
     # initialize plot
     print('Generating plot for environment {}...'.format(env))
@@ -127,7 +141,7 @@ def main():
     parser.add_argument('--avg_window', nargs='?', type=int, default=100, help='moving average window')
     parser.add_argument('--max_timestep', nargs='?', type=int, default=10000000, help='max timestep to plot to')
     parser.add_argument('--timescale', nargs='?', type=int, default=2000000, help='timestep scale')
-    parser.add_argument('--overwrite', action='store_true', default=False, dest='overwrite', help='overwrite existing avg')
+    parser.add_argument('--overwrite', action='store_false', default=True, dest='overwrite', help='overwrite existing avg')
 
     args = parser.parse_args()
 
