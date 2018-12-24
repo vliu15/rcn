@@ -69,7 +69,7 @@ We find that not using biases yields best results with Evolutionary Strategies a
 ## Citation
 To cite this repository in publications:
 ```
-@misc{RNN-CPG,
+@misc{RCNs,
     author={Liu, Vincent},
     contributors={Adeniji, Ademi and Lee, Nate and Zhao, Jason},
     title={Recurrent Control Nets as Central Pattern Generators},
