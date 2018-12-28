@@ -5,4 +5,5 @@ mjkey.txt
 **/*.csv
 **/*.pkl
 **/*.png
+**/*.jpg
 **/*.xlsx

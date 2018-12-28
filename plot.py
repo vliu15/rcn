@@ -21,15 +21,7 @@ ABBRVS = ['mlp', 'scn', 'rnn', 'rcn']
 
 # for plotting RCNs for bias vector testing
 # MODELS = ['RecurrentControlNet,WithBias', 'RecurrentControlNet,NoBias']
-# ABBRVS = ['rnn_nobias', 'rnn_bias']
-
-# input directory must exist
-IN_DIR = os.path.join(os.getcwd(), 'data')
-assert(os.path.exists(IN_DIR))
-# output directory will be made if it doesnt exist
-OUT_DIR = os.path.join(os.getcwd(), 'plots')
-if not os.path.exists(OUT_DIR):
-    os.makedirs(OUT_DIR)
+# ABBRVS = ['rcn_bias', 'rcn_nobias']
 
 def moving_average(a, n=100):
     """
@@ -88,13 +80,14 @@ def plot(args):
     
     # initialize plot
     print('Generating plot for environment {}...'.format(env))
+    plt.rcParams.update({'font.size': 13})
     plt.figure()
     plt.xlim(0, max_timestep)
     plt.xticks([x for x in range(0, max_timestep+1, timescale)],
         [str(x/1000000) + 'M' for x in range(0, max_timestep+1, timescale)])
     plt.xlabel('Timesteps')
     plt.ylabel('Episodic Reward')
-    plt.title('{} (moving-average width={})'.format(env, avg_window))
+    plt.title('{}'.format(env))
 
     # iterate through each model for plotting
     for m, a in zip(MODELS, ABBRVS):
@@ -129,14 +122,17 @@ def plot(args):
     # save compiled plot
     print('Saving...')
     plt.legend()
-    plt.savefig((os.path.join(OUT_DIR, '{}.png'.format(env))))
+    plt.savefig((os.path.join(OUT_DIR, '{}.jpg'.format(env))))
     plt.close()
 
 def main():
     parser = argparse.ArgumentParser()
-    # specify mode and envs
-    # required_args = parser.add_argument_group('required arguments')
+    # specify env
     parser.add_argument('--env', nargs=1, type=str, help='environment to plot')
+    parser.add_argument('--mode', nargs='?', type=str, default='baselines', help='models to plot')
+    # directories
+    parser.add_argument('--in_dir', nargs='?', type=str, default=os.path.join(os.getcwd(), 'data'), help='data directory')
+    parser.add_argument('--out_dir', nargs='?', type=str, default=os.path.join(os.getcwd(), 'plots'), help='graph directory')
     # plot parameters
     parser.add_argument('--avg_window', nargs='?', type=int, default=100, help='moving average window')
     parser.add_argument('--max_timestep', nargs='?', type=int, default=10000000, help='max timestep to plot to')
@@ -144,6 +140,31 @@ def main():
     parser.add_argument('--overwrite', action='store_false', default=True, dest='overwrite', help='overwrite existing avg')
 
     args = parser.parse_args()
+
+    global IN_DIR
+    global OUT_DIR
+    # input directory must exist
+    IN_DIR = args.in_dir
+    assert(os.path.exists(IN_DIR))
+    # output directory will be made if it doesnt exist
+    OUT_DIR = args.out_dir
+    if not os.path.exists(OUT_DIR):
+        os.makedirs(OUT_DIR)
+
+    global MODELS
+    global ABBRVS
+    # for plotting recurrent architectures against each other
+    if args.mode == 'rnns':
+        MODELS = ['RecurrentNeuralNetwork', 'GatedRecurrentUnit', 'LongShortTermMemory']
+        ABBRVS = ['rnn', 'gru', 'lstm']
+    # for plotting RCNs for bias vector testing
+    elif args.mode == 'rcn-biases':
+        MODELS = ['RecurrentControlNet,WithBias', 'RecurrentControlNet,NoBias']
+        ABBRVS = ['rcn_bias', 'rcn_nobias']
+    # for plotting baselines against each other
+    else:
+        MODELS = ['MultilayerPerceptron', 'StructuredControlNet', 'RecurrentNeuralNetwork', 'RecurrentControlNet']
+        ABBRVS = ['mlp', 'scn', 'rnn', 'rcn']
 
     plot(args)
 

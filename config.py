@@ -67,7 +67,7 @@ rcn_params = {
     'hidden_size': 32,
     'n_kernel_initializer': i.constant(0),
     'n_bias_initializer': i.constant(0),
-    'n_use_bias': False,
+    'n_use_bias': True,
 
     # linear module
     'l_kernel_initializer': i.constant(0),
@@ -93,7 +93,7 @@ lstm_params = {
     'hidden_size': 32,
     'kernel_initializer': i.uniform(0),
     'bias_initializer': i.constant(0),
-    'use_bias': False
+    'use_bias': True
 }
 
 ## ==== TIME DELAY MODELS ==== ##
