@@ -5,23 +5,7 @@ import numpy as np
 
 interactive(True)
 
-ENVS = ['Hopper-v2', 'Swimmer-v2', 'Walker2d-v2', 'HalfCheetah-v2', 'Humanoid-v2', 'HumanoidStandup-v2']
-
-# for plotting baselines against each other
-MODELS = ['MultilayerPerceptron', 'StructuredControlNet', 'RecurrentNeuralNetwork', 'RecurrentControlNet']
-ABBRVS = ['mlp', 'scn', 'rnn', 'rcn']
-
-# for plotting recurrent architectures against each other
-# MODELS = ['RecurrentNeuralNetwork', 'GatedRecurrentUnit', 'LongShortTermMemory']
-# ABBRVS = ['rnn', 'gru', 'lstm']
-
-# for plotting different initializations of RNNs
-# MODELS = ['RecurrentNeuralNetwork,GaussianInit', 'RecurrentNeuralNetwork,UniformInit', 'RecurrentNeuralNetwork,ConstantInit', 'RecurrentNeuralNetwork,ZeroInit']
-# ABBRVS = ['rnn-gaussian', 'rnn-uniform', 'rnn-constant', 'rnn-zero']
-
-# for plotting RCNs for bias vector testing
-# MODELS = ['RecurrentControlNet,WithBias', 'RecurrentControlNet,NoBias']
-# ABBRVS = ['rcn_bias', 'rcn_nobias']
+ENVS = ['Hopper-v2', 'Swimmer-v2', 'Walker2d-v2', 'HalfCheetah-v2', 'Humanoid-v2']
 
 def moving_average(a, n=100):
     """
@@ -90,7 +74,7 @@ def plot(args):
     plt.title('{}'.format(env))
 
     # iterate through each model for plotting
-    for m, a in zip(MODELS, ABBRVS):
+    for m, a, l in zip(MODELS, ABBRVS, LABELS):
         # obtain .csv files corresponding to model
         files = [i for i in f if a in i]
         if len(files) == 0:
@@ -115,9 +99,9 @@ def plot(args):
             if avg_window > 1:
                 y_moveavg = moving_average(y, avg_window)
                 y_moveavg = np.append(y_moveavg, [y_moveavg[-1]] * (avg_window - 1))
-                plt.plot(x, y_moveavg, label=a)
+                plt.plot(x, y_moveavg, label=l)
             else:
-                plt.plot(x, y, label=a)
+                plt.plot(x, y, label=l)
 
     # save compiled plot
     print('Saving...')
@@ -137,7 +121,7 @@ def main():
     parser.add_argument('--avg_window', nargs='?', type=int, default=100, help='moving average window')
     parser.add_argument('--max_timestep', nargs='?', type=int, default=10000000, help='max timestep to plot to')
     parser.add_argument('--timescale', nargs='?', type=int, default=2000000, help='timestep scale')
-    parser.add_argument('--overwrite', action='store_false', default=True, dest='overwrite', help='overwrite existing avg')
+    parser.add_argument('--overwrite', action='store_true', default=False, dest='overwrite', help='overwrite existing avg')
 
     args = parser.parse_args()
 
@@ -153,18 +137,22 @@ def main():
 
     global MODELS
     global ABBRVS
+    global LABELS
     # for plotting recurrent architectures against each other
     if args.mode == 'rnns':
         MODELS = ['RecurrentNeuralNetwork', 'GatedRecurrentUnit', 'LongShortTermMemory']
         ABBRVS = ['rnn', 'gru', 'lstm']
+        LABELS = ['RNN-32', 'GRU-32', 'LSTM-32']
     # for plotting RCNs for bias vector testing
     elif args.mode == 'rcn-biases':
         MODELS = ['RecurrentControlNet,WithBias', 'RecurrentControlNet,NoBias']
         ABBRVS = ['rcn_bias', 'rcn_nobias']
+        LABELS = ['RCN-32 with bias', 'RCN-32 with no bias']
     # for plotting baselines against each other
     else:
         MODELS = ['MultilayerPerceptron', 'StructuredControlNet', 'RecurrentNeuralNetwork', 'RecurrentControlNet']
         ABBRVS = ['mlp', 'scn', 'rnn', 'rcn']
+        LABELS = ['MLP-64', 'SCN-16', 'RNN-32', 'RCN-32']
 
     plot(args)
 
